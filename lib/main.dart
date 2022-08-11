@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,33 +14,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Button'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -48,68 +31,282 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  final isToggleButtonSelectedFirst = <bool>[false, false, false];
+  final isToggleButtonSelectedSecond = <bool>[false, false, false];
+  final isToggleButtonSelectedThird = <bool>[true, false, false];
+  final isToggleButtonSelectedFourth = <bool>[false, false, false];
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: null,
+                child: const Text("Disabled Text Button"),
+              ),
+              const SizedBox(height: 20),
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  if (kDebugMode) {
+                    print("Text Button Clicked");
+                  }
+                },
+                child: const Text("Text Button"),
+              ),
+              const SizedBox(height: 20),
+              TextButton.icon(
+                  style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    if (kDebugMode) {
+                      print("Icon Text Button Clicked");
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.access_alarm,
+                    size: 24,
+                  ),
+                  label: const Text("Icon Text Button")),
+              const SizedBox(height: 20),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: <Color>[
+                              Color(0xFF0D47A1),
+                              Color(0xFF1976D2),
+                              Color(0xFF42A5F5),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(16.0),
+                        primary: Colors.white,
+                        textStyle: const TextStyle(fontSize: 20),
+                      ),
+                      onPressed: () {
+                        if (kDebugMode) {
+                          print("Gradient Text Button Clicked");
+                        }
+                      },
+                      child: const Text("Gradient Text Button"),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    if (kDebugMode) {
+                      print("Outlined button clicked.");
+                    }
+                  },
+                  child: const Text("Outlined button")),
+              const SizedBox(height: 20),
+              OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  debugPrint("Icon Outline Button clicked");
+                },
+                icon: const Icon(Icons.account_circle),
+                label: const Text("Icon Outline Button"),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: null,
+                child: const Text("Disabled Elevated Button"),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  debugPrint("Elevated Button Clicked");
+                },
+                child: const Text("Elevated Button"),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  debugPrint("Icon Elevated Button Clicked");
+                },
+                icon: const Icon(Icons.add_a_photo),
+                label: const Text("Icon Elevated Button"),
+              ),
+              const SizedBox(height: 20),
+              ToggleButtons(
+                color: Colors.black.withOpacity(0.60),
+                selectedColor: const Color(0xFF6200EE),
+                selectedBorderColor: const Color(0xFF6200EE),
+                fillColor: const Color(0xFF6200EE).withOpacity(0.08),
+                splashColor: const Color(0xFF6200EE).withOpacity(0.12),
+                hoverColor: const Color(0xFF6200EE).withOpacity(0.04),
+                borderRadius: BorderRadius.circular(4.0),
+                constraints: const BoxConstraints(minHeight: 36.0),
+                isSelected: isToggleButtonSelectedFirst,
+                onPressed: (int index) {
+                  //Select any and/or all buttons
+                  setState(() {
+                    isToggleButtonSelectedFirst[index] =
+                        !isToggleButtonSelectedFirst[index];
+                  });
+                },
+                children: const <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('BUTTON 1'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('BUTTON 2'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('BUTTON 3'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              ToggleButtons(
+                color: Colors.black.withOpacity(0.60),
+                selectedColor: const Color(0xFF6200EE),
+                selectedBorderColor: const Color(0xFF6200EE),
+                fillColor: const Color(0xFF6200EE).withOpacity(0.08),
+                splashColor: const Color(0xFF6200EE).withOpacity(0.12),
+                hoverColor: const Color(0xFF6200EE).withOpacity(0.04),
+                borderRadius: BorderRadius.circular(4.0),
+                constraints: const BoxConstraints(minHeight: 36.0),
+                isSelected: isToggleButtonSelectedSecond,
+                onPressed: (int index) {
+                  //Select only one button, at least one should be selected
+                  setState(() {
+                    for (int buttonIndex = 0;
+                        buttonIndex < isToggleButtonSelectedSecond.length;
+                        buttonIndex++) {
+                      if (buttonIndex == index) {
+                        isToggleButtonSelectedSecond[buttonIndex] = true;
+                      } else {
+                        isToggleButtonSelectedSecond[buttonIndex] = false;
+                      }
+                    }
+                  });
+                },
+                children: const <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('BUTTON 4'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('BUTTON 5'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('BUTTON 6'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              ToggleButtons(
+                color: Colors.black.withOpacity(0.60),
+                selectedColor: const Color(0xFF6200EE),
+                selectedBorderColor: const Color(0xFF6200EE),
+                fillColor: const Color(0xFF6200EE).withOpacity(0.08),
+                splashColor: const Color(0xFF6200EE).withOpacity(0.12),
+                hoverColor: const Color(0xFF6200EE).withOpacity(0.04),
+                borderRadius: BorderRadius.circular(4.0),
+                constraints: const BoxConstraints(minHeight: 36.0),
+                isSelected: isToggleButtonSelectedThird,
+                onPressed: (int index) {
+                  //Select only one button, zero selection is allowed
+                  setState(() {
+                    for (int buttonIndex = 0;
+                        buttonIndex < isToggleButtonSelectedThird.length;
+                        buttonIndex++) {
+                      if (buttonIndex == index) {
+                        isToggleButtonSelectedThird[buttonIndex] =
+                            !isToggleButtonSelectedThird[buttonIndex];
+                      } else {
+                        isToggleButtonSelectedThird[buttonIndex] = false;
+                      }
+                    }
+                  });
+                },
+                children: const <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('BUTTON 7'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('BUTTON 8'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('BUTTON 9'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              ToggleButtons(
+                color: Colors.black.withOpacity(0.60),
+                selectedColor: const Color(0xFF6200EE),
+                selectedBorderColor: const Color(0xFF6200EE),
+                fillColor: const Color(0xFF6200EE).withOpacity(0.08),
+                splashColor: const Color(0xFF6200EE).withOpacity(0.12),
+                hoverColor: const Color(0xFF6200EE).withOpacity(0.04),
+                borderRadius: BorderRadius.circular(4.0),
+                constraints: const BoxConstraints(minHeight: 36.0),
+                isSelected: isToggleButtonSelectedFourth,
+                onPressed: (int index) {
+                  //Select any and/or all buttons
+                  setState(() {
+                    isToggleButtonSelectedFourth[index] =
+                        !isToggleButtonSelectedFourth[index];
+                  });
+                },
+                children: const <Widget>[
+                  Icon(Icons.favorite),
+                  Icon(Icons.visibility),
+                  Icon(Icons.notifications),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
